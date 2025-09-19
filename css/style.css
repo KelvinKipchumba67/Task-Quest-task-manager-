@@ -12,3 +12,99 @@ a{
     padding: 20px;
     
 }
+
+body { margin: 0; font-family: Arial, sans-serif; }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      padding: 1rem;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+    a{
+        text-decoration: none;
+    }
+
+    .main{
+        margin: 70px;
+        padding: 30px;
+        text-align: center;
+        font-size: 3rem;
+    }
+
+    .sidebar {
+      width: 200px;
+      background: #444;
+      color: white;
+      height: 100vh; /* full height */
+      padding-top: 20px;
+      position: fixed;
+    }
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 10px;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      background: #666;
+    }
+    .content {
+      margin-left: 200px;
+      padding: 20px;
+      flex: 1;
+    }
+    .features-cards{
+        display: flex;
+        align-items: center;
+    }
+    .features-a{
+        margin: 60px;
+        padding: 30px;
+        width: 200px;
+        height: 300px;
+        background-color: orangered;
+        border: black;
+        border-radius: 20px;
+    }
+    .features-d{
+        margin: 60px;
+        padding: 30px;
+        width: 200px;
+        height: 300px;
+        background-color: orangered;
+        border: black;
+        border-radius: 20px;
+    }
+    .features-b{
+        margin: 60px;
+        padding: 30px;
+        width: 200px;
+        height: 300px;
+        background-color: orangered;
+        border: black;
+        border-radius: 20px;
+    }
+    .features-c{
+        margin: 60px;
+        padding: 30px;
+        width: 200px;
+        height: 300px;
+        background-color: orangered;
+        border: black;
+        border-radius: 20px;
+    }
+    .calltoaction-btn{
+        background-color: orangered;
+        color: black;
+        border-radius: 10px;
+        
+    }
