@@ -1,23 +1,383 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Quest</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaskQuest — Dashboard</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root{
+      --green: #28a745;
+      --yellow: #ffc107;
+      --bg: #f5f6fa;
+      --card-radius: 12px;
+      --shadow: 0 6px 18px rgba(20,20,50,0.06);
+      --soft-shadow: 0 4px 10px rgba(20,20,50,0.04);
+      --max-width: 1100px;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:#1f2937;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      justify-content:center;
+      padding:28px 16px;
+    }
+
+    .app{
+      width:100%;
+      max-width:var(--max-width);
+    }
+
+    /* Top nav */
+    .topnav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:20px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .logo{
+      width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--green),#2ecc71);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;box-shadow:var(--soft-shadow);
+    }
+
+    .app-title{font-weight:700;font-size:18px;}
+
+    .logout-btn{
+      background:white;border:1px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:999px;box-shadow:var(--soft-shadow);cursor:pointer;display:inline-flex;align-items:center;gap:8px;
+    }
+
+    .logout-btn:hover{transform:translateY(-2px);}
+
+    /* Main container */
+    .container{
+      display:flex;flex-direction:column;gap:18px;
+    }
+
+    .grid{
+      display:flex;flex-direction:column;gap:18px;
+    }
+
+    .card{
+      background:white;border-radius:var(--card-radius);box-shadow:var(--shadow);padding:18px;
+    }
+
+    /* To-do card */
+    .todo-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+    .input-row{display:flex;gap:8px;align-items:center}
+    .task-input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #e6e9ef;background:transparent;font-size:14px}
+    .add-btn{background:var(--green);color:white;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;box-shadow:var(--soft-shadow);}
+    .add-btn:hover{filter:brightness(0.95);transform:translateY(-1px)}
+
+    .tasks-list{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+    .task-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04)}
+    .task-item.completed{opacity:0.9}
+    .task-label{flex:1;word-break:break-word}
+    .task-label.completed{text-decoration:line-through;color:rgba(0,0,0,0.45)}
+    .action-btn{background:transparent;border:none;cursor:pointer;padding:8px;border-radius:8px}
+    .action-btn:hover{background:rgba(0,0,0,0.03)}
+
+    /* Stats card */
+    .stats{display:flex;flex-direction:column;gap:12px}
+    .stats-card{display:flex;flex-direction:column;gap:12px;align-items:center}
+    .stat-meta{display:flex;gap:8px;align-items:center}
+    .pill{padding:6px 10px;border-radius:999px;font-size:13px}
+    .pill.green{background:rgba(40,167,69,0.08);color:var(--green)}
+    .pill.yellow{background:rgba(255,193,7,0.08);color:var(--yellow)}
+
+    /* responsive layout */
+    @media(min-width:880px){
+      .grid{flex-direction:row}
+      .left{flex:2}
+      .right{flex:1}
+    }
+
+    /* Mobile responsive styles */
+    @media(max-width:879px){
+      body{padding:16px 8px;}
+      .app{max-width:100%;}
+      .topnav{flex-direction:column;gap:16px;text-align:center;}
+      .brand{justify-content:center;}
+      .card{padding:16px;}
+      .input-row{flex-direction:column;}
+      .task-input{width:100%;margin-bottom:8px;}
+      .add-btn{width:100%;}
+    }
+
+    @media(max-width:480px){
+      body{padding:12px 4px;}
+      .topnav{margin-bottom:16px;}
+      .card{padding:12px;}
+      .app-title{font-size:16px;}
+      .task-input{font-size:16px;} /* Prevents zoom on iOS */
+      .add-btn{padding:12px 16px;}
+    }
+
+    /* small niceties */
+    .empty{color:rgba(0,0,0,0.4);text-align:center;padding:26px 12px}
+
+    #tasksChart {
+      width: 100% !important;
+      max-width: 300px;
+      height: 250px !important; /* keep it consistent */
+    }
+
+    @media(max-width:879px){
+      #tasksChart{
+        max-width:250px;
+        height:200px !important;
+      }
+    }
+  </style>
+</head>
 <body>
-   <div class="navbar">
-    <div class="logo"><a href="#">TASK QUEST</a></div>
-    <div class="links">
-      <a href="/logout">Logout</a>
-      <a href="/contact.html">Contact Us</a>
-    </div>
+  <div class="app">
+    <header class="topnav">
+      <div class="brand">
+        <div class="logo">TQ</div>
+        <div>
+          <div class="app-title">TaskQuest</div>
+          <div style="font-size:12px;color:rgba(0,0,0,0.45)">Your productivity companion</div>
+        </div>
+      </div>
+
+      <div>
+        <button id="logoutBtn" class="logout-btn" title="Sign out">Logout</button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="grid">
+        <!-- To-do -->
+        <section class="card left" aria-labelledby="todo-title">
+          <div class="todo-header">
+            <h2 id="todo-title">To-Do List</h2>
+            <div style="font-size:13px;color:rgba(0,0,0,0.45)">LocalStorage • Firebase Auth</div>
+          </div>
+
+          <div class="input-row">
+            <input id="taskInput" class="task-input" placeholder="Add a new task — e.g. Finish project write-up" aria-label="New task" />
+            <button id="addTaskBtn" class="add-btn">Add Task</button>
+          </div>
+
+          <div id="tasksList" class="tasks-list" aria-live="polite"></div>
+
+        </section>
+
+        <!-- Stats -->
+        <aside class="card right stats">
+          <h3>Productivity Stats</h3>
+
+          <div class="stats-card">
+            <canvas id="tasksChart" aria-label="Completed vs Pending Tasks"></canvas>
+
+            <div class="stat-meta">
+              <div class="pill green" id="completedCount">0 Completed</div>
+              <div class="pill yellow" id="pendingCount">0 Pending</div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+
+    </main>
   </div>
-  <div class="sidebar">
-    <a href="#">Dashboard</a>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
-    <a href="#">Logout</a>
-  </div>
+
+  <!-- Firebase (modular) -->
+   <script src="config/env.js"></script>
+  <script type="module">
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: window.ENV.FIREBASE_API_KEY,
+      authDomain: window.ENV.FIREBASE_AUTH_DOMAIN,
+      projectId: window.ENV.FIREBASE_PROJECT_ID,
+      storageBucket: window.ENV.FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: window.ENV.FIREBASE_MESSAGING_SENDER_ID,
+      appId: window.ENV.FIREBASE_APP_ID,
+      measurementId: window.ENV.FIREBASE_MEASUREMENT_ID
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    let currentUser = null;
+
+    // Redirect to login if not signed in
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // Redirect to login page
+        window.location.href = 'login.html';
+      } else {
+        // Set current user and load their tasks
+        currentUser = user;
+        console.log('Signed in as', user.email || user.uid);
+        // Reload tasks when user changes
+        tasks = loadTasks();
+        renderTasks();
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      try {
+        await signOut(auth);
+        // Will be redirected by onAuthStateChanged handler
+      } catch (err) {
+        console.error('Sign out error', err);
+        alert('Could not sign out — check console.');
+      }
+    });
+
+    // ======= Task logic (localStorage with user-specific keys) =======
+    function getStorageKey() {
+      // Create user-specific storage key
+      if (!currentUser) return 'taskquest_tasks_v1';
+      return `taskquest_tasks_${currentUser.uid}_v1`;
+    }
+
+    function uid() { return Math.random().toString(36).slice(2,9); }
+
+    function loadTasks(){
+      try{
+        const raw = localStorage.getItem(getStorageKey());
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){console.error('loadTasks parse',e);return []}
+    }
+
+    function saveTasks(tasks){
+      localStorage.setItem(getStorageKey(), JSON.stringify(tasks));
+    }
+
+    // UI elements
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const tasksList = document.getElementById('tasksList');
+
+    let tasks = [];
+
+    // Chart.js setup
+    const ctx = document.getElementById('tasksChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed','Pending'],
+        datasets: [{
+          data: [0,0],
+          backgroundColor: [getComputedStyle(document.documentElement).getPropertyValue('--green') || '#28a745',
+                            getComputedStyle(document.documentElement).getPropertyValue('--yellow') || '#ffc107']
+        }]
+      },
+      options: {
+        responsive:true,
+        maintainAspectRatio:false,
+        plugins:{legend:{position:'bottom'}}
+      }
+    });
+
+    function updateChart(){
+      const completed = tasks.filter(t=>t.completed).length;
+      const pending = tasks.length - completed;
+      chart.data.datasets[0].data = [completed,pending];
+      chart.update();
+      document.getElementById('completedCount').textContent = `${completed} Completed`;
+      document.getElementById('pendingCount').textContent = `${pending} Pending`;
+    }
+
+    function renderTasks(){
+      tasksList.innerHTML = '';
+      if(tasks.length === 0){
+        const el = document.createElement('div'); el.className='empty'; el.textContent = 'No tasks yet — add something to get started!';
+        tasksList.appendChild(el);
+        updateChart();
+        return;
+      }
+
+      tasks.forEach(task => {
+        const row = document.createElement('div');
+        row.className = 'task-item' + (task.completed ? ' completed' : '');
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = !!task.completed;
+        checkbox.setAttribute('aria-label', 'Mark task complete');
+
+        checkbox.addEventListener('change', ()=>{
+          task.completed = checkbox.checked;
+          saveTasks(tasks);
+          renderTasks();
+        });
+
+        const label = document.createElement('div');
+        label.className = 'task-label' + (task.completed ? ' completed' : '');
+        label.textContent = task.text;
+
+        const delBtn = document.createElement('button');
+        delBtn.className = 'action-btn';
+        delBtn.title = 'Delete task';
+        delBtn.innerHTML = '🗑️';
+        delBtn.addEventListener('click', ()=>{
+          tasks = tasks.filter(t=>t.id !== task.id);
+          saveTasks(tasks);
+          renderTasks();
+        });
+
+        row.appendChild(checkbox);
+        row.appendChild(label);
+        row.appendChild(delBtn);
+
+        tasksList.appendChild(row);
+      });
+
+      updateChart();
+    }
+
+    function addTask(text){
+      const trimmed = (text||'').trim();
+      if(!trimmed) return;
+      tasks.unshift({id: uid(), text: trimmed, completed:false, createdAt: Date.now()});
+      saveTasks(tasks);
+      renderTasks();
+    }
+
+    addTaskBtn.addEventListener('click', ()=>{
+      addTask(taskInput.value);
+      taskInput.value = '';
+      taskInput.focus();
+    });
+
+    taskInput.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        addTask(taskInput.value);
+        taskInput.value = '';
+      }
+    });
+
+    // Don't render tasks initially - wait for auth state change
+    // renderTasks();
+
+    // Make Chart resize nicely inside card
+    // window.addEventListener('resize', ()=> chart.resize());
+
+  </script>
+  
 </body>
 </html>

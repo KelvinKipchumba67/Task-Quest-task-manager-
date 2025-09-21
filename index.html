@@ -1,43 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Quest</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Quest | Productivity Made Fun</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Base Reset */
+    body { margin: 0; font-family: Arial, sans-serif; line-height: 1.5; }
+    a { text-decoration: none; color: inherit; }
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: orangered;
+      color: white;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #0056b3; }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #1E3A8A;
+      color: white;
+    }
+    .navbar .logo a { font-size: 1.5rem; font-weight: bold; color: white; }
+    .navbar .links { display: flex; gap: 1.5rem; }
+    .navbar .links a { color: white; font-weight: 500; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: #f7f9fc;
+    }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+    .hero-sub { font-size: 1.2rem; color: #555; }
+
+    /* Features */
+    .features { padding: 3rem 2rem; text-align: center; }
+    .features-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .features-cards div {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .feature-title { font-size: 1.2rem; margin-top: 1rem; font-weight: bold; }
+    .feature-desc { color: #666; margin-top: 0.5rem; }
+
+    /* Why Choose Us */
+    .whychoose { padding: 3rem 2rem; text-align: center; background: #f0f4ff; }
+    .whychoose p { max-width: 700px; margin: auto; font-size: 1.1rem; color: #333; }
+
+    /* Testimonials */
+    .testimonials { padding: 3rem 2rem; background: #f7f9fc; }
+    .testimonials h2 { margin-bottom: 2rem; }
+    .testimonials .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .testimonials .card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      max-width: 300px;
+    }
+    .action{
+      color: black;
+    }
+
+    /* CTA */
+    .cta-final { text-align: center; padding: 3rem 2rem; }
+    .cta-final .call { font-size: 2rem; margin-bottom: 1rem; }
+    .cta-final .action { font-size: 1.1rem; margin-bottom: 1.5rem; color: #444; }
+
+    /* Footer */
+    footer { background: #1E3A8A; color: white; text-align: center; padding: 1rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2rem; }
+      .navbar { flex-direction: column; gap: 1rem; }
+      .navbar .links { flex-direction: column; align-items: center; }
+      .cta-final .call { font-size: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 1.5rem; }
+      .hero-sub { font-size: 1rem; }
+      .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+    }
+    .testimony{
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar">
+
+  <!-- Navbar -->
+  <div class="navbar">
     <div class="logo"><a href="#">TASK QUEST</a></div>
     <div class="links">
-      <a href="/login.html">Sign In</a>
-      <a href="/contact.html">Contact Us</a>
-      <a href="/dashboard.html">Dashboard</a>
+      <a href="login.html">Sign In</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="dashboard.html">Dashboard</a>
     </div>
   </div>
-  <div class="main">
-     <h1>Stay Organized. Stay Motivated. Get Things Done.</h1>
-  </div>
 
-  <div class="features-cards">
-    <div class="features-a"></div>
-    <div class="features-b"></div>
-    <div class="features-c"></div>
-    <div class="features-d"></div>
-  </div>
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Stay Organized. Stay Motivated. Get Things Done.</h1>
+    <p class="hero-sub">Your productivity journey starts here. Join Task Quest and transform the way you work.</p>
+    <div class="calltoaction-btn">
+      <a href="signup.html" class="btn">Get Started For Free</a>
+    </div>
+  </section>
 
-  
-  <div class="calltoaction-btn">
-    <button type="button">Get Started For Free</button>
-  </div>
+  <!-- Features -->
+  <section class="features">
+    <h2 class="keyfeatures">Key Features</h2>
+    <div class="features-cards">
+      <div><span>📝</span><div class="feature-title">Task Tracking</div><div class="feature-desc">Easily manage and check off your daily tasks.</div></div>
+      <div><span>🎯</span><div class="feature-title">Goal Setting</div><div class="feature-desc">Set clear goals and track your progress.</div></div>
+      <div><span>🏆</span><div class="feature-title">Achievements</div><div class="feature-desc">Earn badges and rewards for completing tasks.</div></div>
+      <div><span>📊</span><div class="feature-title">Statistics</div><div class="feature-desc">Visualize your productivity with charts and stats.</div></div>
+    </div>
+  </section>
 
+  <!-- Why Choose -->
+  <section class="whychoose">
+    <h2 class="why">Why Choose Us</h2>
+    <p>Unlike traditional task managers, our platform turns productivity into a fun experience. Every completed task earns you points and boosts your streak so you stay motivated while achieving more.</p>
+  </section>
 
-  <p>Why Choose Us</p>
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2 class="testimony">What Our Users Say</h2>
+    <div class="cards">
+      <div class="card">“Task Quest keeps me motivated every day. The streaks and achievements are a game changer!”<br><br><strong style="color:#007bff">— Alex</strong></div>
+      <div class="card">“I love the clean design and how easy it is to track my goals.”<br><br><strong style="color:#007bff">— Priya</strong></div>
+      <div class="card">“The stats and charts help me see my progress at a glance.”<br><br><strong style="color:#007bff">— Sam</strong></div>
+    </div>
+  </section>
 
+  <!-- CTA -->
+  <section class="cta-final">
+    <div class="call">Ready to Take Control of Your Tasks?</div>
+    <div class="action">Start your productivity quest today. Create your free account and transform the way you work in just minutes.</div>
+    <a href="signup.html" class="btn">Create Your Account</a>
+    <a href="login.html" class="btn">Sign In</a>
+  </section>
 
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Task Quest | All Rights Reserved</p>
+  </footer>
 
-  <footer style="background:#333; color:white; text-align:center; padding:1rem; position:fixed; bottom:0; width:100%;">
-  <p>&copy; 2025 Task Quest | All Rights Reserved</p>
-</footer>
 </body>
 </html>
