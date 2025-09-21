@@ -1,6 +1,7 @@
 # 📋 TaskQuest - Your Productivity Companion
 
 A modern, responsive web application for task management with Firebase authentication and real-time data visualization. Stay organized and boost your productivity with an intuitive, user-friendly interface.
+Link to deployed site:https://task-quest-task-manager.vercel.app/
 
 ## 🚀 Features
 
