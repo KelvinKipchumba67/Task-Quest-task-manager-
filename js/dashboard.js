@@ -1,18 +1,22 @@
 // Firebase Setup 
-<script src="config/env.js"></script>
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
-// Your Firebase config (replace with your own project keys)
-    const firebaseConfig = {
-      apiKey: window.ENV.FIREBASE_API_KEY,
-      authDomain: window.ENV.FIREBASE_AUTH_DOMAIN,
-      projectId: window.ENV.FIREBASE_PROJECT_ID,
-      storageBucket: window.ENV.FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: window.ENV.FIREBASE_MESSAGING_SENDER_ID,
-      appId: window.ENV.FIREBASE_APP_ID,
-      measurementId: window.ENV.FIREBASE_MEASUREMENT_ID
-    };
+
+// import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDD1m9R18y7KklktowIlpof800b8rCDZ5w",
+  authDomain: "task-quest-b8aef.firebaseapp.com",
+  projectId: "task-quest-b8aef",
+  storageBucket: "task-quest-b8aef.firebasestorage.app",
+  messagingSenderId: "824530751369",
+  appId: "1:824530751369:web:0763380cd99faaba0b9b58",
+  measurementId: "G-6490XHZR5B"
+};
+
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
