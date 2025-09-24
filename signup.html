@@ -312,12 +312,12 @@
     <p>Stay organized and boost your productivity 🚀</p>
  
     <form id="signup-form" class="auth-form">
-      <input type="text" id="fullname" placeholder="Full Name" required />
-      <input type="email" id="email" placeholder="Email Address" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <input type="password" id="confirm-password" placeholder="Confirm Password" required />
-      <button type="submit" class="btn">Sign Up</button>
-      <div id="signup-error" style="color:#ff4d4f; margin:10px 0;"></div>
+  <input type="text" id="fullname" placeholder="Full Name" required />
+  <input type="email" id="email" placeholder="Email Address" required />
+  <input type="password" id="password" placeholder="Password" required />
+  <input type="password" id="confirm-password" placeholder="Confirm Password" required />
+  <button type="submit" class="btn">Sign Up</button>
+  <div id="signup-error" style="color:#ff4d4f; margin:10px 0;"></div>
     </form>
  
     <p class="switch-auth">Already have an account? <a href="login.html">Sign In</a></p>
@@ -329,71 +329,73 @@
   </footer>
  
   <!-- Firebase SDKs -->
-
-<script src="/.env.local"></script>
-
-
   <script type="module">
-    // import app from "../firebase.js";
-
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
- 
-// config/env.prod.js - Safe for production (no secrets exposed)
-import { initializeApp } from "firebase/app";
 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDD1m9R18y7KklktowIlpof800b8rCDZ5w",
-  authDomain: "task-quest-b8aef.firebaseapp.com",
-  projectId: "task-quest-b8aef",
-  storageBucket: "task-quest-b8aef.firebasestorage.app",
-  messagingSenderId: "824530751369",
-  appId: "1:824530751369:web:0763380cd99faaba0b9b58",
-  measurementId: "G-6490XHZR5B"
-};
-
-const app = initializeApp(firebaseConfig);
-
-
-    // Initialize Firebase
-    
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDD1m9R18y7KklktowIlpof800b8rCDZ5w",
+      authDomain: "task-quest-b8aef.firebaseapp.com",
+      projectId: "task-quest-b8aef",
+      storageBucket: "task-quest-b8aef.firebasestorage.app",
+      messagingSenderId: "824530751369",
+      appId: "1:824530751369:web:0763380cd99faaba0b9b58",
+      measurementId: "G-6490XHZR5B"
+    };
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
- 
-    // ✅ Handle Sign Up
+
+    // Email and password validation
+    function validateEmail(email) {
+      return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+    }
+    function validatePassword(password) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(password);
+    }
+
     document.getElementById("signup-form").addEventListener("submit", async (e) => {
-      e.preventDefault(); // stops form refresh
- 
+      e.preventDefault();
       const fullname = document.getElementById("fullname").value.trim();
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value;
       const confirmPassword = document.getElementById("confirm-password").value;
       const errorDiv = document.getElementById("signup-error");
- 
       errorDiv.textContent = "";
- 
-      // Validate passwords
+
+      // Validate email
+      if (!validateEmail(email)) {
+        errorDiv.textContent = "Please enter a valid email address.";
+        return;
+      }
+      // Validate password
+      if (!validatePassword(password)) {
+        errorDiv.textContent = "Password must be at least 8 characters, include uppercase, lowercase, number, and special character.";
+        return;
+      }
+      // Validate passwords match
       if (password !== confirmPassword) {
         errorDiv.textContent = "Passwords do not match!";
         return;
       }
- 
+
       try {
-        // Create user
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
- 
-        // Update profile with fullname
         await updateProfile(userCredential.user, { displayName: fullname });
- 
-        // Redirect to dashboard
         window.location.href = "dashboard.html";
       } catch (error) {
-        errorDiv.textContent = error.message;
-        console.error("Signup Error:", error);
+        // Show clean error messages
+        if (error.code === "auth/email-already-in-use") {
+          errorDiv.textContent = "Email is already in use.";
+        } else if (error.code === "auth/invalid-email") {
+          errorDiv.textContent = "Invalid email address.";
+        } else if (error.code === "auth/weak-password") {
+          errorDiv.textContent = "Password is too weak.";
+        } else {
+          errorDiv.textContent = error.message;
+        }
       }
     });
- 
-    console.log("✅ Signup form listener attached!");
   </script>
 </body>
 </html>
