@@ -172,7 +172,7 @@ window.ENV = {
 - **Flexible Layouts** - Adapts to any screen size
 - **Optimized Typography** - Readable fonts across devices
 
-## 🔐 Security Best Practices
+##  Security Best Practices
 
 ### Environment Protection
 ```bash
@@ -187,7 +187,7 @@ firebase-config.js     # Firebase secrets
 - API keys are restricted to specific domains
 - Authentication required for all user actions
 
-## 🎨 Customization
+## Customization
 
 ### Styling
 - Edit CSS variables in `<style>` tags for easy theme changes
@@ -199,7 +199,7 @@ firebase-config.js     # Firebase secrets
 - Extend Chart.js configuration for additional chart types
 - Implement additional Firebase services (Firestore, Cloud Functions)
 
-## 📊 Performance
+##  Performance
 
 ### Optimization Features
 - **Lazy Loading** - Charts and heavy content load when needed
