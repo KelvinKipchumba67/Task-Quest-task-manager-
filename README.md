@@ -11,13 +11,13 @@ Link to deployed site:(https://task-quest-task-manager.vercel.app/)
 - **Data Visualization** - Interactive charts showing productivity stats
 - **Real-time Updates** - Instant UI updates without page refreshes
 
-### 📱 User Experience
+###  User Experience
 - **Fully Responsive Design** - Works seamlessly on mobile, tablet, and desktop
 - **Modern UI/UX** - Clean, intuitive interface with smooth animations
 - **Accessibility** - ARIA labels and semantic HTML for screen readers
 - **Progressive Enhancement** - Works without JavaScript for basic functionality
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **HTML5** - Semantic markup and structure
@@ -35,23 +35,23 @@ Link to deployed site:(https://task-quest-task-manager.vercel.app/)
 - **GitHub** - Code hosting and collaboration
 - **Environment Variables** - Secure configuration management
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 taskquest/
-├── 📄 index.html              # Landing page
-├── 🔐 login.html              # Sign in page
-├── 📝 signup.html             # Registration page
-├── 📊 dashboard.html          # Main task dashboard
-├── 📞 contact.html            # Contact form
-├── 📁 config/
-│   ├── 🔑 env.js             # Environment variables (not committed)
-│   └── 📋 env.example.js     # Environment template
-├── 📁 css/
-│   └── 🎨 style.css          # Custom styles (if external)
-├── 🚫 .gitignore             # Git ignore rules
-├── 📖 README.md              # This file
-└── 🌍 .env                   # Environment variables (not committed)
+├──  index.html              # Landing page
+├──  login.html              # Sign in page
+├──  signup.html             # Registration page
+├──  dashboard.html          # Main task dashboard
+├──  contact.html            # Contact form
+├──  config/
+│   ├──  env.js             # Environment variables (not committed)
+│   └──  env.example.js     # Environment template
+├── css/
+│   └──  style.css          # Custom styles (if external)
+├── .gitignore             # Git ignore rules
+├──  README.md              # This file
+└──  .env                   # Environment variables (not committed)
 ```
 
 ## 🚀 Quick Start
