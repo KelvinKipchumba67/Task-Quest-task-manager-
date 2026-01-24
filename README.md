@@ -1,4 +1,4 @@
-# 📋 TaskQuest - Your Productivity Companion
+# TaskQuest - Your Productivity Companion
 
 A modern, responsive web application for task management with Firebase authentication and real-time data visualization. Stay organized and boost your productivity with an intuitive, user-friendly interface.
 Link to deployed site:(https://task-quest-task-manager.vercel.app/)
@@ -54,7 +54,7 @@ taskquest/
 └──  .env                   # Environment variables (not committed)
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -114,7 +114,7 @@ taskquest/
 6. **Access the application**
    Open `http://localhost:3000` in your browser
 
-## 🔧 Configuration
+##  Configuration
 
 ### Firebase Setup
 
