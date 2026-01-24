@@ -162,7 +162,7 @@ window.ENV = {
 };
 ```
 
-## 📱 Responsive Design
+## Responsive Design
 
 
 
